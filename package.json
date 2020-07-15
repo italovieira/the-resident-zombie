@@ -12,6 +12,9 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
-    "jest": "^26.1.0"
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "jest": "^26.1.0",
+    "prettier": "^2.0.5"
   }
 }
