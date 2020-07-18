@@ -19,6 +19,6 @@ app.use((err, req, res, next) => {
   handleError(err, res)
 })
 
-app.listen(PORT)
+app.listen(PORT, () => console.log('API started listening at port %s', PORT))
 
 module.exports = app
