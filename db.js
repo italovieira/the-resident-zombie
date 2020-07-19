@@ -3,7 +3,11 @@ const { mongoUri } = require('./utils/db')
 
 const connect = () => {
   return mongoose
-    .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    })
     .then(() => {
       console.log('Database connection established successfully')
     })

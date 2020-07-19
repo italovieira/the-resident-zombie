@@ -7,6 +7,7 @@ setupDb('survivor')
 
 const survivors = [
   {
+    id: 'batman',
     name: 'Batman',
     age: '40',
     gender: 'm',
@@ -20,6 +21,7 @@ const survivors = [
     },
   },
   {
+    id: 'robin',
     name: 'Robin',
     age: '22',
     gender: 'f',
@@ -33,6 +35,7 @@ const survivors = [
     },
   },
   {
+    id: 'wonderwoman',
     name: 'Wonder Woman',
     age: '39',
     gender: 'f',
@@ -46,6 +49,7 @@ const survivors = [
     },
   },
   {
+    id: 'joker',
     name: 'Joker',
     age: '46',
     gender: 'm',
@@ -59,6 +63,7 @@ const survivors = [
     },
   },
   {
+    id: 'alfred',
     name: 'Alfred',
     age: '70',
     gender: 'm',
@@ -72,6 +77,7 @@ const survivors = [
     },
   },
   {
+    id: 'harleyquinn',
     name: 'HarleyQuinn',
     age: '31',
     gender: 'f',
@@ -85,6 +91,7 @@ const survivors = [
     },
   },
   {
+    id: 'penguin',
     name: 'Penguin',
     age: '46',
     gender: 'm',
@@ -105,6 +112,7 @@ beforeAll(async () => {
 
 test('should save survivor to database', async done => {
   const res = await request.post('/signup').send({
+    id: 'jimgordon',
     name: 'Jim Gordon',
     age: '58',
     gender: 'm',
@@ -118,7 +126,7 @@ test('should save survivor to database', async done => {
     },
   })
 
-  const survivor = await Survivor.findOne({ name: 'Jim Gordon' })
+  const survivor = await Survivor.findOne({ id: 'jimgordon' })
 
   expect(survivor.name).toBeTruthy()
 

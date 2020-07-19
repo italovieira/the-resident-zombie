@@ -1,6 +1,12 @@
 const db = require('../db')
 
 const survivorSchema = new db.Schema({
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+    match: /[a-zA-Z0-9]+/,
+  },
   name: String,
   age: Number,
   gender: String,

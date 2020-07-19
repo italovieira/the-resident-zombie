@@ -14,6 +14,7 @@ module.exports = {
       await mongoose.connect(mongoUriTest, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        useCreateIndex: true,
       })
     })
 

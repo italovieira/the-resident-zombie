@@ -44,6 +44,7 @@ $ docker-compose run --rm api npm test
 ```sh
 curl -H "Content-Type: application/json" -X POST http://localhost:8080/signup \
 -d '{
+  "id": "foo123",
   "name": "Foo",
   "age": "10",
   "gender": "m",
