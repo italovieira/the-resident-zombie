@@ -58,3 +58,14 @@ curl -H "Content-Type: application/json" -X POST http://localhost:8080/signup \
   }
 }'
 ```
+
+## Update location
+
+```sh
+curl -H "Content-Type: application/json" -X PUT http://localhost:8080/update_location/foo123 \
+-d '{
+  "latitude": 7,
+  "longitude": -13,
+  }
+}'
+```
