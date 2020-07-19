@@ -144,3 +144,15 @@ test('should update survivor location', async done => {
 
   done()
 })
+
+test('should flag infected survivor', async done => {
+  const data = { id: 'penguin' }
+
+  const res = await request.post('/flag_infected/robin').send(data)
+
+  const flaggedInfected = await Survivor.findOne(data)
+
+  expect(flaggedInfected.flaggedBy).toContain('robin')
+
+  done()
+})
