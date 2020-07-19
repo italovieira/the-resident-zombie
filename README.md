@@ -34,3 +34,26 @@ For testing purposes you can run
 ```sh
 $ docker-compose run --rm api npm test
 ```
+
+
+# Usage
+
+
+## Signup
+
+```sh
+curl -H "Content-Type: application/json" -X POST http://localhost:8080/signup \
+-d '{
+  "name": "Foo",
+  "age": "10",
+  "gender": "m",
+  "latitude": 10,
+  "longitude": -10,
+  "inventory": {
+    "Fiji Water": 1,
+    "Campbell Soup": 1,
+    "First Aid Pouch": 10,
+    "AK47": 1
+  }
+}'
+```
