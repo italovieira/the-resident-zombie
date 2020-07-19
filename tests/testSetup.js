@@ -2,11 +2,14 @@ const mongoose = require('mongoose')
 const { mongoUri } = require('../utils/db')
 
 module.exports = {
-  setupDb (databaseName) {
+  setupDb(databaseName) {
     // connect to database
     beforeAll(async () => {
       // Replace database name in URI
-      const mongoUriTest = await mongoUri.replace(/\/(?!.*\/).*?\?/, `/${databaseName}?`)
+      const mongoUriTest = mongoUri.replace(
+        /\/(?!.*\/).*?\?/,
+        `/${databaseName}?`
+      )
 
       await mongoose.connect(mongoUriTest, {
         useNewUrlParser: true,
@@ -18,5 +21,5 @@ module.exports = {
     afterAll(async () => {
       await mongoose.connection.close()
     })
-  }
+  },
 }
