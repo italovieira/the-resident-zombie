@@ -24,6 +24,9 @@ const survivorSchema = new db.Schema({
     type: Map,
     of: Number,
   },
+  flaggedBy: {
+    type: [String],
+  },
 })
 
 module.exports = db.model('Survivor', survivorSchema)

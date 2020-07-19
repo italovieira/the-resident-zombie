@@ -32,4 +32,26 @@ router.put('/update_location/:id', async (req, res, next) => {
   res.json(await survivor.save())
 })
 
+router.post('/flag_infected/:id', async (req, res, next) => {
+  const survivor = await Survivor.findOne({ id: req.params.id })
+
+  if (!survivor) {
+    next(createError(404, 'Survivor not found'))
+  }
+
+  const { id } = req.body
+  const flaggedInfected = await Survivor.findOne({ id })
+
+  if (!flaggedInfected) {
+    next(createError(404, 'Survivor to flag as infected not found'))
+  }
+
+  // If survivor has not already flagged
+  if (flaggedInfected.flaggedBy.indexOf(survivor.id) === -1) {
+    flaggedInfected.flaggedBy.push(survivor.id)
+  }
+
+  res.json(await flaggedInfected.save())
+})
+
 module.exports = router

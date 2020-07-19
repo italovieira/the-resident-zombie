@@ -69,3 +69,13 @@ curl -H "Content-Type: application/json" -X PUT http://localhost:8080/update_loc
   }
 }'
 ```
+
+## Flag infected survivor
+
+```sh
+curl -H "Content-Type: application/json" -X POST http://localhost:8080/flag_infected/foo123 \
+-d '{
+  "id": bar123
+  }
+}'
+```
