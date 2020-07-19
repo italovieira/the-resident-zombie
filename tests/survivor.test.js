@@ -132,3 +132,15 @@ test('should save survivor to database', async done => {
 
   done()
 })
+
+test('should update survivor location', async done => {
+  const data = { latitude: -18, longitude: 39 }
+  const res = await request.put('/update_location/batman').send(data)
+
+  const survivor = await Survivor.findOne({ id: 'batman' })
+
+  expect(survivor.latitude).toBe(-18)
+  expect(survivor.longitude).toBe(39)
+
+  done()
+})
