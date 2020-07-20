@@ -68,6 +68,7 @@ module.exports = [
       'First Aid Pouch': 10,
       AK47: 0,
     },
+    flaggedBy: ['wonderwoman', 'joker', 'harleyquinn', 'penguin', 'catwoman'],
   },
   {
     id: 'harleyquinn',
@@ -82,6 +83,7 @@ module.exports = [
       'First Aid Pouch': 14,
       AK47: 5,
     },
+    flaggedBy: ['robin', 'wonderwoman', 'alfred', 'penguin'],
   },
   {
     id: 'penguin',
@@ -91,10 +93,25 @@ module.exports = [
     latitude: -43,
     longitude: 101,
     inventory: {
-      'Fiji Water': 12,
+      'Fiji Water': 5,
       'Campbell Soup': 11,
       'First Aid Pouch': 13,
       AK47: 6,
+    },
+    flaggedBy: ['batman', 'robin', 'wonderwoman', 'joker', 'harleyquinn'],
+  },
+  {
+    id: 'catwoman',
+    name: 'Catwoman',
+    age: '35',
+    gender: 'f',
+    latitude: 83,
+    longitude: 51,
+    inventory: {
+      'Fiji Water': 30,
+      'Campbell Soup': 6,
+      'First Aid Pouch': 30,
+      AK47: 3,
     },
   },
 ]
