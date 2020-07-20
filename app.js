@@ -1,8 +1,6 @@
 const express = require('express')
 const logger = require('morgan')
-const db = require('./db')
 
-const { PORT } = require('./config')
 const { handleError } = require('./utils/error')
 
 const indexRouter = require('./routes/index')
@@ -21,9 +19,5 @@ app.use('/', survivorRouter)
 app.use((err, req, res, next) => {
   handleError(err, res)
 })
-
-db.connect()
-
-app.listen(PORT, () => console.log('API started listening at port %s', PORT))
 
 module.exports = app
