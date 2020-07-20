@@ -1,4 +1,5 @@
 const db = require('../db')
+const { mergeWith, add, subtract } = require('../utils/general')
 
 const survivorSchema = new db.Schema({
   id: {
@@ -28,5 +29,14 @@ const survivorSchema = new db.Schema({
     type: [String],
   },
 })
+
+
+survivorSchema.methods.addItems = function (items) {
+  mergeWith(add)(this.inventory, items)
+}
+
+survivorSchema.methods.removeItems = function (items) {
+  mergeWith(subtract)(this.inventory, items)
+}
 
 module.exports = db.model('Survivor', survivorSchema)
