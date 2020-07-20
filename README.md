@@ -66,7 +66,6 @@ curl -H "Content-Type: application/json" -X PUT http://localhost:8080/survivors/
 -d '{
   "latitude": 7,
   "longitude": -13,
-  }
 }'
 ```
 
@@ -76,6 +75,28 @@ curl -H "Content-Type: application/json" -X PUT http://localhost:8080/survivors/
 curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors/foo123/infected \
 -d '{
   "id": bar123
-  }
 }'
+```
+
+
+## Make trades
+
+```sh
+curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors/trades \
+-d '[
+      {
+        id: 'joker',
+        items: {
+          'Campbell Soup': 6,
+          AK47: 6,
+        },
+      },
+      {
+        id: 'harleyquinn',
+        items: {
+          'Fiji Water': 5,
+          'First Aid Pouch': 5,
+        },
+      },
+]'
 ```
