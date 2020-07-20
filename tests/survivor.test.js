@@ -195,6 +195,12 @@ describe('trade items', () => {
 
     done()
   })
+
+  test.todo('should fail if one of the survivors is infected')
+
+  test.todo('should fail if one of the survivors do not have enough items')
+
+  test.todo('should fail if the trade is not of equal value for both survivors')
 })
 
 afterAll(async () => {
