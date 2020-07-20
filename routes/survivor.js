@@ -55,7 +55,7 @@ router.post('/survivors/:id/infected', async (req, res, next) => {
   res.json(await flaggedInfected.save())
 })
 
-router.post('/survivors/trades', async (req, res, next) => {
+router.post('/trades', async (req, res, next) => {
   const [obj1, obj2] = req.body
 
   const survivor1 = await Survivor.findOne({ id: obj1.id })

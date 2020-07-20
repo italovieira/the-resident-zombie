@@ -176,7 +176,7 @@ describe('trade items', () => {
       },
     ]
 
-    const res = await request.post('/survivors/trades').send(data)
+    const res = await request.post('/trades').send(data)
 
     const survivor1 = await Survivor.findOne({ id: 'joker' })
 
