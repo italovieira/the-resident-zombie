@@ -58,7 +58,7 @@ const survivors = [
     inventory: {
       'Fiji Water': 12,
       'Campbell Soup': 42,
-      'First Aid Pouch': 0,
+      'First Aid Pouch': 7,
       AK47: 13,
     },
   },
@@ -78,7 +78,7 @@ const survivors = [
   },
   {
     id: 'harleyquinn',
-    name: 'HarleyQuinn',
+    name: 'Harley Quinn',
     age: '31',
     gender: 'f',
     latitude: -43,
@@ -155,6 +155,46 @@ test('should flag infected survivor', async done => {
   expect(flaggedInfected.flaggedBy).toContain('robin')
 
   done()
+})
+
+describe('trade items', () => {
+  test('should trade items between given survivors', async done => {
+    const data = [
+      {
+        id: 'joker',
+        items: {
+          'Campbell Soup': 6,
+          AK47: 6,
+        },
+      },
+      {
+        id: 'harleyquinn',
+        items: {
+          'Fiji Water': 5,
+          'First Aid Pouch': 5,
+        },
+      },
+    ]
+
+    const res = await request.post('/survivors/trades').send(data)
+
+    const survivor1 = await Survivor.findOne({ id: 'joker' })
+
+    // check Joker inventory
+    expect(survivor1.inventory.get('Fiji Water')).toBe(12 + 5)
+    expect(survivor1.inventory.get('Campbell Soup')).toBe(42 - 6)
+    expect(survivor1.inventory.get('First Aid Pouch')).toBe(7 + 5)
+    expect(survivor1.inventory.get('AK47')).toBe(13 - 6)
+
+    // check  Harley Quinn inventory
+    const survivor2 = await Survivor.findOne({ id: 'harleyquinn' })
+    expect(survivor2.inventory.get('Fiji Water')).toBe(22 - 5)
+    expect(survivor2.inventory.get('Campbell Soup')).toBe(21 + 6)
+    expect(survivor2.inventory.get('First Aid Pouch')).toBe(14 - 5)
+    expect(survivor2.inventory.get('AK47')).toBe(5 + 6)
+
+    done()
+  })
 })
 
 afterAll(async () => {
