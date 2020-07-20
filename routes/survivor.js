@@ -3,9 +3,8 @@ const router = express.Router()
 const createError = require('http-errors')
 
 const Survivor = require('../models/Survivor')
-const { mergeWith, add, subtract } = require('../utils/general')
 
-router.use('/survivors/:id', async (req, res, next) => {
+router.use('/:id', async (req, res, next) => {
   const survivor = await Survivor.findOne({ id: req.params.id })
 
   if (!survivor) {
@@ -16,7 +15,7 @@ router.use('/survivors/:id', async (req, res, next) => {
   next()
 })
 
-router.post('/survivors', async (req, res) => {
+router.post('/', async (req, res) => {
   const { id, name, age, gender, latitude, longitude, inventory } = req.body
   const survivor = new Survivor({
     id,
@@ -30,7 +29,7 @@ router.post('/survivors', async (req, res) => {
   res.json(await survivor.save())
 })
 
-router.put('/survivors/:id/location', async (req, res, next) => {
+router.put('/:id/location', async (req, res, next) => {
   const survivor = res.locals.survivor
 
   const { latitude, longitude } = req.body
@@ -40,7 +39,7 @@ router.put('/survivors/:id/location', async (req, res, next) => {
   res.json(await survivor.save())
 })
 
-router.post('/survivors/:id/infected', async (req, res, next) => {
+router.post('/:id/infected', async (req, res, next) => {
   const survivor = res.locals.survivor
 
   const { id } = req.body
@@ -56,21 +55,6 @@ router.post('/survivors/:id/infected', async (req, res, next) => {
   }
 
   res.json(await flaggedInfected.save())
-})
-
-router.post('/trades', async (req, res, next) => {
-  const [obj1, obj2] = req.body
-
-  const survivor1 = await Survivor.findOne({ id: obj1.id })
-  const survivor2 = await Survivor.findOne({ id: obj2.id })
-
-  mergeWith(subtract)(survivor1.inventory, obj1.items)
-  mergeWith(add)(survivor1.inventory, obj2.items)
-
-  mergeWith(subtract)(survivor2.inventory, obj2.items)
-  mergeWith(add)(survivor2.inventory, obj1.items)
-
-  res.json([await survivor1.save().a, await survivor2.save().b])
 })
 
 module.exports = router
