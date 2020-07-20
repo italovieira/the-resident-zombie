@@ -52,6 +52,11 @@ test('should flag infected survivor', async done => {
   done()
 })
 
+test('should get sum of points per user', async () => {
+  const survivor = await Survivor.findOne({ id: 'catwoman' })
+  expect(survivor.getPoints()).toBe(30 * 14 + 6 * 12 + 30 * 10 + 3 * 8)
+})
+
 describe('trade items', () => {
   test('should trade items between given survivors', async done => {
     const data = [

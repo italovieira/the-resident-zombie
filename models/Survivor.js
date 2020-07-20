@@ -1,5 +1,5 @@
 const db = require('../db')
-const { mergeWith, add, subtract } = require('../utils/general')
+const { mergeWith, add, subtract, product } = require('../utils/general')
 
 const survivorSchema = new db.Schema({
   id: {
@@ -30,6 +30,20 @@ const survivorSchema = new db.Schema({
   },
 })
 
+survivorSchema.methods.isInfected = function () {
+  return this.flaggedBy.length >= 5
+}
+
+survivorSchema.methods.getPoints = function () {
+  const points = new Map()
+  points.set('Fiji Water', 14)
+  points.set('Campbell Soup', 12)
+  points.set('First Aid Pouch', 10)
+  points.set('AK47', 8)
+
+  mergeWith(product)(points, Object.fromEntries(this.inventory))
+  return Array.from(points.values()).reduce(add)
+}
 
 survivorSchema.methods.addItems = function (items) {
   mergeWith(add)(this.inventory, items)
