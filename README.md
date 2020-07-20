@@ -42,7 +42,7 @@ $ docker-compose run --rm api npm test
 ## Signup
 
 ```sh
-curl -H "Content-Type: application/json" -X POST http://localhost:8080/signup \
+curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors \
 -d '{
   "id": "foo123",
   "name": "Foo",
@@ -62,7 +62,7 @@ curl -H "Content-Type: application/json" -X POST http://localhost:8080/signup \
 ## Update location
 
 ```sh
-curl -H "Content-Type: application/json" -X PUT http://localhost:8080/update_location/foo123 \
+curl -H "Content-Type: application/json" -X PUT http://localhost:8080/survivors/foo123/location \
 -d '{
   "latitude": 7,
   "longitude": -13,
@@ -73,7 +73,7 @@ curl -H "Content-Type: application/json" -X PUT http://localhost:8080/update_loc
 ## Flag infected survivor
 
 ```sh
-curl -H "Content-Type: application/json" -X POST http://localhost:8080/flag_infected/foo123 \
+curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors/foo123/infected \
 -d '{
   "id": bar123
   }

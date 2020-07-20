@@ -4,7 +4,7 @@ const createError = require('http-errors')
 
 const Survivor = require('../models/Survivor')
 
-router.post('/signup', async (req, res) => {
+router.post('/survivors', async (req, res) => {
   const { id, name, age, gender, latitude, longitude, inventory } = req.body
   const survivor = new Survivor({
     id,
@@ -18,7 +18,7 @@ router.post('/signup', async (req, res) => {
   res.json(await survivor.save())
 })
 
-router.put('/update_location/:id', async (req, res, next) => {
+router.put('/survivors/:id/location', async (req, res, next) => {
   const survivor = await Survivor.findOne({ id: req.params.id })
 
   if (!survivor) {
@@ -32,7 +32,7 @@ router.put('/update_location/:id', async (req, res, next) => {
   res.json(await survivor.save())
 })
 
-router.post('/flag_infected/:id', async (req, res, next) => {
+router.post('/survivors/:id/infected', async (req, res, next) => {
   const survivor = await Survivor.findOne({ id: req.params.id })
 
   if (!survivor) {

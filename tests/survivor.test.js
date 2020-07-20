@@ -111,7 +111,7 @@ beforeAll(async () => {
 })
 
 test('should save survivor to database', async done => {
-  const res = await request.post('/signup').send({
+  const res = await request.post('/survivors').send({
     id: 'jimgordon',
     name: 'Jim Gordon',
     age: '58',
@@ -135,7 +135,7 @@ test('should save survivor to database', async done => {
 
 test('should update survivor location', async done => {
   const data = { latitude: -18, longitude: 39 }
-  const res = await request.put('/update_location/batman').send(data)
+  const res = await request.put('/survivors/batman/location').send(data)
 
   const survivor = await Survivor.findOne({ id: 'batman' })
 
@@ -148,7 +148,7 @@ test('should update survivor location', async done => {
 test('should flag infected survivor', async done => {
   const data = { id: 'penguin' }
 
-  const res = await request.post('/flag_infected/robin').send(data)
+  const res = await request.post('/survivors/robin/infected').send(data)
 
   const flaggedInfected = await Survivor.findOne(data)
 
