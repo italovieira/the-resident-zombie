@@ -5,6 +5,17 @@ const createError = require('http-errors')
 const Survivor = require('../models/Survivor')
 const { mergeWith, add, subtract } = require('../utils/general')
 
+router.use('/survivors/:id', async (req, res, next) => {
+  const survivor = await Survivor.findOne({ id: req.params.id })
+
+  if (!survivor) {
+    next(createError(404, 'Survivor not found'))
+  }
+
+  res.locals.survivor = survivor
+  next()
+})
+
 router.post('/survivors', async (req, res) => {
   const { id, name, age, gender, latitude, longitude, inventory } = req.body
   const survivor = new Survivor({
@@ -20,11 +31,7 @@ router.post('/survivors', async (req, res) => {
 })
 
 router.put('/survivors/:id/location', async (req, res, next) => {
-  const survivor = await Survivor.findOne({ id: req.params.id })
-
-  if (!survivor) {
-    next(createError(404, 'Survivor not found'))
-  }
+  const survivor = res.locals.survivor
 
   const { latitude, longitude } = req.body
   survivor.latitude = latitude
@@ -34,11 +41,7 @@ router.put('/survivors/:id/location', async (req, res, next) => {
 })
 
 router.post('/survivors/:id/infected', async (req, res, next) => {
-  const survivor = await Survivor.findOne({ id: req.params.id })
-
-  if (!survivor) {
-    next(createError(404, 'Survivor not found'))
-  }
+  const survivor = res.locals.survivor
 
   const { id } = req.body
   const flaggedInfected = await Survivor.findOne({ id })
