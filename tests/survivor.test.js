@@ -156,3 +156,8 @@ test('should flag infected survivor', async done => {
 
   done()
 })
+
+afterAll(async () => {
+  // Removes the Survivor collection
+  await Survivor.collection.drop()
+})
