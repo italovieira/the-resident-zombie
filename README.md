@@ -11,7 +11,7 @@ DB_USER=mongo
 DB_PASSWORD=mongo
 DB_HOST=localhost
 DB_PORT=27017
-DB_NAME=test
+DB_NAME=resident
 DB_OPTIONS=authSource=admin
 ```
 
@@ -33,6 +33,13 @@ For seed database with sample data
 $ docker-compose exec api node bin/seedDatabase
 ```
 
+## Staring
+
+You can run the script `scripts/run.sh` (from the repository root path) to check tests, start the server and for seeding the database in one line call.
+
+```sh
+```
+
 ## Testing
 
 For testing purposes you can run
@@ -47,10 +54,10 @@ To check test coverage
 $ docker-compose run --rm api npx jest --coverage
 ```
 
-Suppose you have created the .env sample below, to enter mongodb console you can run
+Suppose you have created the `.env` sample below, to enter mongodb console you can run
 
 ```sh
-$ docker-compose exec db mongo mongodb://mongo:mongo@db:27017/zombie?authSource=admin
+$ docker-compose exec db mongo mongodb://mongo:mongo@db:27017/resident?authSource=admin
 ```
 
 Once in it, you can run `db.survivors.find()` to list inserted survivors into the database
