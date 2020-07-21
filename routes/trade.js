@@ -11,6 +11,9 @@ router.post('/', async (req, res, next) => {
 
   const survivor1 = await Survivor.findOne({ id: obj1.id })
   const survivor2 = await Survivor.findOne({ id: obj2.id })
+  if (!survivor1 || !survivor2) {
+    return next(createError(404, 'Survivor not found'))
+  }
 
   if (survivor1.isInfected() || survivor2.isInfected()) {
     return next(
@@ -35,6 +38,15 @@ router.post('/', async (req, res, next) => {
 
   survivor2.removeItems(items2)
   survivor2.addItems(items1)
+
+  if (!survivor1.haveEnoughItems() || !survivor2.haveEnoughItems()) {
+    return next(
+      createError(
+        403,
+        'Trade cannot be made. One of the survivors do not have enough items in inventory'
+      )
+    )
+  }
 
   const savedSurvivor1 = await survivor1.save()
   const savedSurvivor2 = await survivor2.save()

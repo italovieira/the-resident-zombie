@@ -115,7 +115,30 @@ describe('trade items', () => {
     )
   })
 
-  test.todo('should fail if one of the survivors do not have enough items')
+  test('should fail if one of the survivors do not have enough items', async () => {
+    const data = [
+      {
+        id: 'batman',
+        items: {
+          'Campbell Soup': 6,
+          AK47: 6,
+        },
+      },
+      {
+        id: 'robin',
+        items: {
+          'Fiji Water': 5,
+          'First Aid Pouch': 5,
+        },
+      },
+    ]
+
+    const res = await request.post('/trades').send(data)
+    expect(res.status).toBe(403)
+    expect(res.body.message).toBe(
+      'Trade cannot be made. One of the survivors do not have enough items in inventory'
+    )
+  })
 
   test('should fail if the trade is not of equal value for both survivors', async () => {
     const data = [

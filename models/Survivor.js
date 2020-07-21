@@ -52,6 +52,10 @@ survivorSchema.methods.removeItems = function (items) {
   mergeWith(subtract)(this.inventory, items)
 }
 
+survivorSchema.methods.haveEnoughItems = function () {
+  return Array.from(this.inventory.values()).every(value => value >= 0)
+}
+
 survivorSchema.statics.getAverageResources = function (survivors) {
   const emptyInventory = new Map()
   emptyInventory.set('Fiji Water', 0)
