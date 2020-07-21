@@ -88,7 +88,28 @@ describe('trade items', () => {
     expect(survivor2.inventory.get('AK47')).toBe(5 + 6)
   })
 
-  test.todo('should fail if one of the survivors is infected')
+  test('should fail if one of the survivors is infected', async () => {
+    const data = [
+      {
+        id: 'joker',
+        items: {
+          'Campbell Soup': 6,
+          AK47: 6,
+        },
+      },
+      {
+        id: 'penguin',
+        items: {
+          'Fiji Water': 5,
+          'First Aid Pouch': 5,
+        },
+      },
+    ]
+
+    const res = await request.post('/trades').send(data)
+    expect(res.status).toBe(403)
+    expect(res.body.message).toBe('One of the survivors is infected')
+  })
 
   test.todo('should fail if one of the survivors do not have enough items')
 
