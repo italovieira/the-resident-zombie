@@ -1,5 +1,7 @@
 # The Resident Zombie
 
+https://gist.github.com/akitaonrails/711b5553533d1a14364907bbcdbee677
+
 ## Installation (via docker-compose)
 
 Create a `.env` file with the variables to fit your environment
@@ -33,11 +35,12 @@ For seed database with sample data
 $ docker-compose exec api node bin/seedDatabase
 ```
 
-## Staring
+## Starting
 
-You can run the script `scripts/run.sh` (from the repository root path) to check tests, start the server and for seeding the database in one line call.
+All above steps can be executed with only one line call by running `scripts/run.sh`
 
 ```sh
+$ scripts/run.sh
 ```
 
 ## Testing
