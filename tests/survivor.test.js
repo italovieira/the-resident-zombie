@@ -86,6 +86,8 @@ describe('trade items', () => {
     expect(survivor2.inventory.get('Campbell Soup')).toBe(21 + 6)
     expect(survivor2.inventory.get('First Aid Pouch')).toBe(14 - 5)
     expect(survivor2.inventory.get('AK47')).toBe(5 + 6)
+
+    expect(res.status).toBe(200)
   })
 
   test('should fail if one of the survivors is infected', async () => {
@@ -115,5 +117,29 @@ describe('trade items', () => {
 
   test.todo('should fail if one of the survivors do not have enough items')
 
-  test.todo('should fail if the trade is not of equal value for both survivors')
+  test('should fail if the trade is not of equal value for both survivors', async () => {
+    const data = [
+      {
+        id: 'wonderwoman',
+        items: {
+          'Fiji Water': 1,
+          'Campbell Soup': 3,
+          AK47: 2,
+        },
+      },
+      {
+        id: 'catwoman',
+        items: {
+          'Fiji Water': 2,
+          'First Aid Pouch': 1,
+        },
+      },
+    ]
+
+    const res = await request.post('/trades').send(data)
+    expect(res.status).toBe(403)
+    expect(res.body.message).toBe(
+      'Trade cannot be made. Items points must be equal for both survivors'
+    )
+  })
 })

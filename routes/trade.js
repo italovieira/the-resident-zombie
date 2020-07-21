@@ -4,6 +4,7 @@ const createError = require('http-errors')
 const router = express.Router()
 
 const Survivor = require('../models/Survivor')
+const { toMap } = require('../utils/general')
 
 router.post('/', async (req, res, next) => {
   const [obj1, obj2] = req.body
@@ -17,11 +18,23 @@ router.post('/', async (req, res, next) => {
     )
   }
 
-  survivor1.removeItems(obj1.items)
-  survivor1.addItems(obj2.items)
+  const items1 = toMap(obj1.items)
+  const items2 = toMap(obj2.items)
 
-  survivor2.removeItems(obj2.items)
-  survivor2.addItems(obj1.items)
+  if (Survivor.getPoints(items1) != Survivor.getPoints(items2)) {
+    return next(
+      createError(
+        403,
+        'Trade cannot be made. Items points must be equal for both survivors'
+      )
+    )
+  }
+
+  survivor1.removeItems(items1)
+  survivor1.addItems(items2)
+
+  survivor2.removeItems(items2)
+  survivor2.addItems(items1)
 
   const savedSurvivor1 = await survivor1.save()
   const savedSurvivor2 = await survivor2.save()

@@ -1,7 +1,6 @@
 const db = require('../db')
 const {
   mergeWith,
-  toMap,
   add,
   subtract,
   product,
@@ -42,22 +41,15 @@ survivorSchema.methods.isInfected = function () {
 }
 
 survivorSchema.methods.getPoints = function () {
-  const points = new Map()
-  points.set('Fiji Water', 14)
-  points.set('Campbell Soup', 12)
-  points.set('First Aid Pouch', 10)
-  points.set('AK47', 8)
-
-  mergeWith(product)(points, this.inventory)
-  return Array.from(points.values()).reduce(add)
+  return this.schema.statics.getPoints(this.inventory)
 }
 
 survivorSchema.methods.addItems = function (items) {
-  mergeWith(add)(this.inventory, toMap(items))
+  mergeWith(add)(this.inventory, items)
 }
 
 survivorSchema.methods.removeItems = function (items) {
-  mergeWith(subtract)(this.inventory, toMap(items))
+  mergeWith(subtract)(this.inventory, items)
 }
 
 survivorSchema.statics.getAverageResources = function (survivors) {
@@ -80,6 +72,23 @@ survivorSchema.statics.getAverageResources = function (survivors) {
     inventories.reduce(mergeWith(add), emptyInventory),
     fakeInventory
   )
+}
+
+survivorSchema.statics.getPoints = function (items) {
+  const points = new Map()
+  points.set('Fiji Water', 14)
+  points.set('Campbell Soup', 12)
+  points.set('First Aid Pouch', 10)
+  points.set('AK47', 8)
+
+  Array.from(points.keys()).forEach(key => {
+    if (!items.has(key)) {
+      items.set(key, 0)
+    }
+  })
+
+  mergeWith(product)(points, items)
+  return Array.from(points.values()).reduce(add)
 }
 
 module.exports = db.model('Survivor', survivorSchema)
