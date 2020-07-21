@@ -32,6 +32,13 @@ const survivorSchema = new db.Schema({
   inventory: {
     type: Map,
     of: Number,
+    validate: {
+      validator: items => {
+        const keys = ['Fiji Water', 'Campbell Soup', 'First Aid Pouch', 'AK47']
+        return Array.from(items.keys()).every(key => keys.includes(key))
+      },
+      message: 'Cannot add invalid items in your inventory',
+    },
   },
   flaggedBy: {
     type: [String],
