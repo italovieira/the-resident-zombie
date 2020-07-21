@@ -26,13 +26,13 @@ test('should report percentage of non-infected survivors correctly', async () =>
   expect(nonInfected.percentage).toBe(75)
 })
 
-test.skip('should report the average amount of each kind of resource by the survivor correctly', async () => {
+test('should report the average amount of each kind of resource by the survivor correctly', async () => {
   const res = await request.get('/report')
   const items = res.body.averageResourcesPerSurvivor
 
   expect(items['Fiji Water']).toBe((41 + 13 + 34 + 12 + 22 + 30) / 6)
   expect(items['Campbell Soup']).toBe((36 + 7 + 24 + 42 + 21 + 6) / 6)
-  expect(items['First Aid Pouch']).toBe((43 + 2 + 7 + 14 + 30) / 6)
+  expect(items['First Aid Pouch']).toBe((43 + 5 + 2 + 7 + 14 + 30) / 6)
   expect(items['AK47']).toBe((0 + 4 + 9 + 13 + 5 + 3) / 6)
 })
 

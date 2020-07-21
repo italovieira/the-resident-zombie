@@ -1,13 +1,15 @@
 const { mergeWith, subtract } = require('../utils/general')
 
-test('test merge common keys in first object with source object by applying a function', () => {
-  const map = new Map()
-  map.set('a', 6)
-  map.set('b', -5)
+test('test merge common keys in Maps', () => {
+  const map1 = new Map()
+  map1.set('a', 6)
+  map1.set('b', -5)
 
-  const obj = { a: 9, b: -5 }
+  const map2 = new Map()
+  map2.set('a', 9)
+  map2.set('b', -5)
 
-  mergeWith(subtract)(map, obj)
-  expect(map.get('a')).toBe(6 - 9)
-  expect(map.get('b')).toBe(-5 + 5)
+  mergeWith(subtract)(map1, map2)
+  expect(map1.get('a')).toBe(6 - 9)
+  expect(map1.get('b')).toBe(-5 + 5)
 })

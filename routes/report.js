@@ -13,6 +13,9 @@ router.get('/', async (req, res, next) => {
   infected.total = infectedSurvivors.length
   infected.percentage = (100 * infected.total) / total
 
+  const nonInfectedSurvivors = survivors.filter(
+    survivor => !survivor.isInfected()
+  )
   const nonInfected = {}
   nonInfected.total = total - infected.total
   nonInfected.percentage = 100 - infected.percentage
@@ -21,7 +24,16 @@ router.get('/', async (req, res, next) => {
     .map(infected => infected.getPoints())
     .reduce(add)
 
-  res.json({ infected, nonInfected, lostPoints })
+  const averageResourcesPerSurvivor = Object.fromEntries(
+    Survivor.getAverageResources(nonInfectedSurvivors)
+  )
+
+  res.json({
+    infected,
+    nonInfected,
+    lostPoints,
+    averageResourcesPerSurvivor,
+  })
 })
 
 module.exports = router
