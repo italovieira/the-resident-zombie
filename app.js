@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/', indexRouter)
 app.use('/survivors', survivorRouter)
 app.use('/trades', tradeRouter)
-app.use('/report', reportRouter)
+app.use('/reports', reportRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -6,12 +6,12 @@ const { setupDb } = require('./testSetup')
 setupDb('report')
 
 test('should return successful response', async () => {
-  const res = await request.get('/report')
+  const res = await request.get('/reports')
   expect(res.status).toBe(200)
 })
 
 test('should report percentage of infected survivors correctly', async () => {
-  const res = await request.get('/report')
+  const res = await request.get('/reports')
   const infected = res.body.infected
 
   expect(infected.total).toBe(2)
@@ -19,7 +19,7 @@ test('should report percentage of infected survivors correctly', async () => {
 })
 
 test('should report percentage of non-infected survivors correctly', async () => {
-  const res = await request.get('/report')
+  const res = await request.get('/reports')
   const nonInfected = res.body.nonInfected
 
   expect(nonInfected.total).toBe(6)
@@ -27,7 +27,7 @@ test('should report percentage of non-infected survivors correctly', async () =>
 })
 
 test('should report the average amount of each kind of resource by the survivor correctly', async () => {
-  const res = await request.get('/report')
+  const res = await request.get('/reports')
   const items = res.body.averageResourcesPerSurvivor
 
   expect(items['Fiji Water']).toBe((41 + 13 + 34 + 12 + 22 + 30) / 6)
@@ -37,7 +37,7 @@ test('should report the average amount of each kind of resource by the survivor 
 })
 
 test('should report points lost because of infected survivor correctly', async () => {
-  const res = await request.get('/report')
+  const res = await request.get('/reports')
   expect(res.body.lostPoints).toBe(
     (9 + 5) * 14 + (8 + 11) * 12 + (10 + 13) * 10 + (0 + 6) * 8
   )

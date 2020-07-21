@@ -109,5 +109,5 @@ curl -H "Content-Type: application/json" -X POST http://localhost:8080/trades \
 ## Report
 
 ```sh
-curl -H "Content-Type: application/json" -X GET http://localhost:8080/reports \
+curl -X GET http://localhost:8080/reports
 ```
