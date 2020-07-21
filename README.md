@@ -30,7 +30,7 @@ $ docker-compose up -d
 For seed database with sample data
 
 ```sh
-docker-compose exec api node bin/seedDatabase
+$ docker-compose exec api node bin/seedDatabase
 ```
 
 ## Testing
@@ -50,19 +50,19 @@ $ docker-compose run --rm api npx jest --coverage
 Suppose you have created the .env sample below, to enter mongodb console you can run
 
 ```sh
-docker-compose exec db mongo mongodb://mongo:mongo@db:27017/zombie?authSource=admin
+$ docker-compose exec db mongo mongodb://mongo:mongo@db:27017/zombie?authSource=admin
 ```
 
 Once in it, you can run `db.survivors.find()` to list inserted survivors into the database
 
 # Usage
 
-If you followed the step to seed database, you can copy and past the shell codes below to see the result
+If you followed the steps above, you can copy and past the shell codes below to see the results
 
 ## Signup
 
 ```sh
-curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors \
+$ curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors \
 -d '{
   "id": "poisonivy",
   "name": "Poison Ivy",
@@ -79,10 +79,14 @@ curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors
 }'
 ```
 
+`id` must be a unique string of characters and numbers with minimum size of 2 and maximum 20
+
+`inventory` must be an object with keys containing one or more of 'Fiji Water', 'Campbell Soup', 'First Aid Pouch', 'AK47'. Be aware that the keys are case sensitive, so 'fiji water' is not a valid key.
+
 ## Update location
 
 ```sh
-curl -H "Content-Type: application/json" -X PUT http://localhost:8080/survivors/poisonivy/location \
+$ curl -H "Content-Type: application/json" -X PUT http://localhost:8080/survivors/batman/location \
 -d '{
   "latitude": 7,
   "longitude": -13,
@@ -92,17 +96,19 @@ curl -H "Content-Type: application/json" -X PUT http://localhost:8080/survivors/
 ## Flag infected survivor
 
 ```sh
-curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors/poisonivy/infected \
+$ curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors/robin/infected \
 -d '{
-  "id": robin
+  "id": penguin
 }'
 ```
+
+To be clear, in this example survivor 'Robin' flags 'Penguin' as infected
 
 
 ## Make trades
 
 ```sh
-curl -H "Content-Type: application/json" -X POST http://localhost:8080/trades \
+$ curl -H "Content-Type: application/json" -X POST http://localhost:8080/trades \
 -d '[
       {
         id: 'joker',
@@ -124,6 +130,25 @@ curl -H "Content-Type: application/json" -X POST http://localhost:8080/trades \
 ## Report
 
 ```sh
-curl -X GET http://localhost:8080/reports
+$ curl -X GET http://localhost:8080/reports
+```
+```json
+{
+  "infected": {
+    "total": 2,
+    "percentage": 25
+  },
+  "nonInfected": {
+    "total": 6,
+    "percentage": 75
+  },
+  "lostPoints": 702,
+  "averageResourcesPerSurvivor": {
+    "Fiji Water": 25.333333333333332,
+    "Campbell Soup": 22.666666666666668,
+    "First Aid Pouch": 16.833333333333332,
+    "AK47": 5.666666666666667
+  }
+}
 ```
 

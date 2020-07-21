@@ -13,6 +13,8 @@ const survivorSchema = new db.Schema({
     required: true,
     unique: true,
     match: /[a-zA-Z0-9]+/,
+    min: 2,
+    max: 20,
   },
   name: String,
   age: Number,
