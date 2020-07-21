@@ -35,6 +35,11 @@ For testing purposes you can run
 $ docker-compose run --rm api npm test
 ```
 
+To check test coverage
+
+```sh
+$ docker-compose run --rm api npx jest --coverage
+```
 
 # Usage
 
@@ -44,16 +49,16 @@ $ docker-compose run --rm api npm test
 ```sh
 curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors \
 -d '{
-  "id": "foo123",
-  "name": "Foo",
-  "age": "10",
-  "gender": "m",
-  "latitude": 10,
-  "longitude": -10,
+  "id": "poisonivy",
+  "name": "Poison Ivy",
+  "age": "34",
+  "gender": "f",
+  "latitude": 56,
+  "longitude": -87,
   "inventory": {
-    "Fiji Water": 1,
-    "Campbell Soup": 1,
-    "First Aid Pouch": 10,
+    "Fiji Water": 5,
+    "Campbell Soup": 4,
+    "First Aid Pouch": 6,
     "AK47": 1
   }
 }'
@@ -62,7 +67,7 @@ curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors
 ## Update location
 
 ```sh
-curl -H "Content-Type: application/json" -X PUT http://localhost:8080/survivors/foo123/location \
+curl -H "Content-Type: application/json" -X PUT http://localhost:8080/survivors/poisonivy/location \
 -d '{
   "latitude": 7,
   "longitude": -13,
@@ -72,9 +77,9 @@ curl -H "Content-Type: application/json" -X PUT http://localhost:8080/survivors/
 ## Flag infected survivor
 
 ```sh
-curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors/foo123/infected \
+curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors/poisonivy/infected \
 -d '{
-  "id": bar123
+  "id": robin
 }'
 ```
 
@@ -82,7 +87,7 @@ curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors
 ## Make trades
 
 ```sh
-curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors/trades \
+curl -H "Content-Type: application/json" -X POST http://localhost:8080/trades \
 -d '[
       {
         id: 'joker',
@@ -99,4 +104,10 @@ curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors
         },
       },
 ]'
+```
+
+## Report
+
+```sh
+curl -H "Content-Type: application/json" -X GET http://localhost:8080/reports \
 ```
