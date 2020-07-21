@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+const db = require('../db')
+const Survivor = require('../models/Survivor')
+const survivors = require('../tests/seeds/survivor')
+
+const seedDatabase = async () => {
+  try {
+    await db.connect()
+    await Survivor.create(survivors)
+    await db.disconnect()
+  } catch (err) {
+    console.log('Error seeding database')
+  }
+}
+
+seedDatabase()

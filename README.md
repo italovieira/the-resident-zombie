@@ -27,6 +27,12 @@ Or to run in the background
 $ docker-compose up -d
 ```
 
+For seed database with sample data
+
+```sh
+docker-compose exec api node bin/seedDatabase
+```
+
 ## Testing
 
 For testing purposes you can run
@@ -41,8 +47,17 @@ To check test coverage
 $ docker-compose run --rm api npx jest --coverage
 ```
 
+Suppose you have created the .env sample below, to enter mongodb console you can run
+
+```sh
+docker-compose exec db mongo mongodb://mongo:mongo@db:27017/zombie?authSource=admin
+```
+
+Once in it, you can run `db.survivors.find()` to list inserted survivors into the database
+
 # Usage
 
+If you followed the step to seed database, you can copy and past the shell codes below to see the result
 
 ## Signup
 
@@ -111,3 +126,4 @@ curl -H "Content-Type: application/json" -X POST http://localhost:8080/trades \
 ```sh
 curl -X GET http://localhost:8080/reports
 ```
+

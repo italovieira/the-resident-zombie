@@ -16,8 +16,13 @@ const connect = () => {
     })
 }
 
+const disconnect = () => {
+  return mongoose.connection.close()
+}
+
 module.exports = {
   Schema: mongoose.Schema,
   model: mongoose.model,
   connect,
+  disconnect,
 }
