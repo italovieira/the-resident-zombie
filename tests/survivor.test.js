@@ -108,7 +108,9 @@ describe('trade items', () => {
 
     const res = await request.post('/trades').send(data)
     expect(res.status).toBe(403)
-    expect(res.body.message).toBe('One of the survivors is infected')
+    expect(res.body.message).toBe(
+      'Trade cannot be made. One of the survivors is infected'
+    )
   })
 
   test.todo('should fail if one of the survivors do not have enough items')
