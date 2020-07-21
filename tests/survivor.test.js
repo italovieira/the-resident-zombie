@@ -5,7 +5,7 @@ const { setupDb } = require('./testSetup')
 
 setupDb('survivor')
 
-test('should save survivor to database', async done => {
+test('should save survivor to database', async () => {
   const res = await request.post('/survivors').send({
     id: 'jimgordon',
     name: 'Jim Gordon',
@@ -24,11 +24,9 @@ test('should save survivor to database', async done => {
   const survivor = await Survivor.findOne({ id: 'jimgordon' })
 
   expect(survivor.name).toBeTruthy()
-
-  done()
 })
 
-test('should update survivor location', async done => {
+test('should update survivor location', async () => {
   const data = { latitude: -18, longitude: 39 }
   const res = await request.put('/survivors/batman/location').send(data)
 
@@ -36,11 +34,9 @@ test('should update survivor location', async done => {
 
   expect(survivor.latitude).toBe(-18)
   expect(survivor.longitude).toBe(39)
-
-  done()
 })
 
-test('should flag infected survivor', async done => {
+test('should flag infected survivor', async () => {
   const data = { id: 'penguin' }
 
   const res = await request.post('/survivors/robin/infected').send(data)
@@ -48,8 +44,6 @@ test('should flag infected survivor', async done => {
   const flaggedInfected = await Survivor.findOne(data)
 
   expect(flaggedInfected.flaggedBy).toContain('robin')
-
-  done()
 })
 
 test('should get sum of points per user', async () => {
@@ -58,7 +52,7 @@ test('should get sum of points per user', async () => {
 })
 
 describe('trade items', () => {
-  test('should trade items between given survivors', async done => {
+  test('should trade items between given survivors', async () => {
     const data = [
       {
         id: 'joker',
@@ -92,8 +86,6 @@ describe('trade items', () => {
     expect(survivor2.inventory.get('Campbell Soup')).toBe(21 + 6)
     expect(survivor2.inventory.get('First Aid Pouch')).toBe(14 - 5)
     expect(survivor2.inventory.get('AK47')).toBe(5 + 6)
-
-    done()
   })
 
   test.todo('should fail if one of the survivors is infected')
