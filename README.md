@@ -89,7 +89,7 @@ $ curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivo
 $ curl -H "Content-Type: application/json" -X PUT http://localhost:8080/survivors/batman/location \
 -d '{
   "latitude": 7,
-  "longitude": -13,
+  "longitude": -13
 }'
 ```
 
@@ -98,7 +98,7 @@ $ curl -H "Content-Type: application/json" -X PUT http://localhost:8080/survivor
 ```sh
 $ curl -H "Content-Type: application/json" -X POST http://localhost:8080/survivors/robin/infected \
 -d '{
-  "id": penguin
+  "id": "penguin"
 }'
 ```
 
@@ -111,21 +111,23 @@ To be clear, in this example survivor 'Robin' flags 'Penguin' as infected
 $ curl -H "Content-Type: application/json" -X POST http://localhost:8080/trades \
 -d '[
       {
-        id: 'joker',
-        items: {
-          'Campbell Soup': 6,
-          AK47: 6,
-        },
+        "id": "joker",
+        "items": {
+          "Campbell Soup": 6,
+          "AK47": 6
+        }
       },
       {
-        id: 'harleyquinn',
-        items: {
-          'Fiji Water': 5,
-          'First Aid Pouch': 5,
-        },
-      },
+        "id": "harleyquinn",
+        "items": {
+          "Fiji Water": 5,
+          "First Aid Pouch": 5
+        }
+      }
 ]'
 ```
+
+`items` follow the same rules applied to `inventory` at signup.
 
 ## Report
 
