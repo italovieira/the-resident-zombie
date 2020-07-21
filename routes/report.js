@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
 
   const lostPoints = infectedSurvivors
     .map(infected => infected.getPoints())
-    .reduce(add)
+    .reduce(add, 0)
 
   const averageResourcesPerSurvivor = Object.fromEntries(
     Survivor.getAverageResources(nonInfectedSurvivors)
