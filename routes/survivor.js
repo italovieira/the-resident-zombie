@@ -15,18 +15,26 @@ router.use('/:id', async (req, res, next) => {
   next()
 })
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   const { id, name, age, gender, latitude, longitude, inventory } = req.body
-  const survivor = new Survivor({
-    id,
-    name,
-    age,
-    gender,
-    latitude,
-    longitude,
-    inventory,
-  })
-  res.json(await survivor.save())
+
+  try {
+    const survivor = new Survivor({
+      id,
+      name,
+      age,
+      gender,
+      latitude,
+      longitude,
+      inventory,
+    })
+    res.json(await survivor.save())
+  } catch (err) {
+    if (err.name === 'MongoError' && err.code === 11000) {
+      next(createError(422, 'Survivor already exists'))
+    }
+    next(err)
+  }
 })
 
 router.put('/:id/location', async (req, res, next) => {
